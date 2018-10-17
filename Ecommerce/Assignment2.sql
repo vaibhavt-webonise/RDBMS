@@ -18,9 +18,9 @@ INSERT INTO Employee values(50,'Jack',30,10000);
 INSERT INTO Department values(100,'Software',150000,20);
 INSERT INTO Department values(200,'Hardware',50000,10);
 INSERT INTO Department values(300,'Testing',45000,20);
-INSERT INTO Department values(400,'QA',100000,30);
-INSERT INTO Department values(500,'Insurance',15000000,20);
-INSERT INTO Department values(600,'Developer',400000000,30);
+INSERT INTO Department values(400,'QA',100000,50);
+INSERT INTO Department values(500,'Insurance',15000000,30);
+INSERT INTO Department values(600,'Developer',400000000,40);
 
 
 INSERT INTO Work values(10,100,5);
