@@ -50,7 +50,12 @@ AND w.Employee_Id<>d.Manager_Id
 AND  e.Employee_Id=w.Employee_Id 
 GROUP BY w.Department_Id;
 
-
+3)
+SELECT GROUP_CONCAT(e.Name) As 'Employees',SUM(w.Pct_Time) As 'No Of Hours' 
+FROM Employee e,Work w 
+WHERE e.Employee_id=w.Employee_Id 
+GROUP BY w.Department_Id 
+HAVING SUM(Pct_Time)>=10;
 
 4)
 SELECT e.Name as 'Employee Name'
@@ -71,3 +76,9 @@ from Employee e, Work w, Department d
 where e.Employee_Id=w.Employee_Id and w.Department_ID=d.Department_ID and 
       e.salary >all (select max(d2.Budget) from Department d2 where d2.Department_ID=d.Department_ID) Or 
 	  e.salary > (select max(d3.Budget) from Department d3 where d3.Department_ID=d.Department_ID);
+
+
+
+SELECT * FROM Employee;
+SELECT * FROM Department;
+SELECT * FROM Work;
