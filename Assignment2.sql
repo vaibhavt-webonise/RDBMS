@@ -8,34 +8,29 @@ CREATE table Work(Employee_ID int,Department_ID int,Pct_Time int,FOREIGN KEY (Em
 
 
 
-INSERT INTO Employee values(10,'Thomas',27,15000);
-INSERT INTO Employee values(20,'Anderson',55,45000);
-INSERT INTO Employee values(30,'Karl',39,30000);
-INSERT INTO Employee values(40,'Andrew',71,12000);
-INSERT INTO Employee values(50,'Jack',30,10000);
+INSERT INTO Employee values(10,'Paul',27,100000);
+INSERT INTO Employee values(20,'Thomas',55,500000);
+INSERT INTO Employee values(30,'Anderson',39,400000);
+INSERT INTO Employee values(40,'Karl',71,120000);
+INSERT INTO Employee values(50,'Jaismin',30,200000);
+INSERT INTO Employee values(60,'Andrew',23,1000000);
+INSERT INTO Employee values(70,'Jack',42,36000);
+INSERT INTO Employee values(80,'Bruce',37,1160000);
 
 
-INSERT INTO Department values(100,'Software',150000,20);
-INSERT INTO Department values(200,'Hardware',50000,10);
-INSERT INTO Department values(300,'Testing',45000,20);
-INSERT INTO Department values(400,'QA',100000,50);
-INSERT INTO Department values(500,'Insurance',15000000,30);
-INSERT INTO Department values(600,'Developer',400000000,40);
+INSERT INTO Department values(100,'Software',200000,10);
+INSERT INTO Department values(200,'Hardware',300000,50);
+INSERT INTO Department values(300,'Testing',45000,60);
+INSERT INTO Department values(400,'QA',100000,20);
 
 
-INSERT INTO Work values(10,100,5);
-INSERT INTO Work values(10,200,4);
-INSERT INTO Work values(30,300,13);
-INSERT INTO Work values(50,100,12);
-INSERT INTO Work values(20,200,11);
-
-
-UPDATE Employee set salary=50000 WHERE Employee_ID=10;
-UPDATE Department set Budget=15000 WHERE Department_ID=300;
-
-SELECT * FROM Employee;
-SELECT * FROM Department;
-SELECT * FROM Work;
+INSERT INTO Work values(20,100,3);
+INSERT INTO Work values(60,200,5);
+INSERT INTO Work values(20,200,8);
+INSERT INTO Work values(30,100,6);
+INSERT INTO Work values(70,200,10);
+INSERT INTO Work values(40,100,2);
+INSERT INTO Work values(80,200,7);
 
 
 1)
@@ -47,11 +42,14 @@ FROM Work w2, Department d2
 WHERE w2.Department_ID=d2.Department_ID
 AND d2.Name='Software');
 
-)
-SELECT e.Name as 'Manager',e.name as 'Employee'
-FROM Employee e,Department d,Work w
-WHERE e.Employee_ID=w.Employee_ID AND d.Department_ID=w.Department_ID AND
-d.Manager_ID=e.Employee_ID;
+2)
+SELECT (SELECT Name FROM Employee WHERE Employee_Id=d.Manager_Id) AS 'Manager',GROUP_CONCAT(e.Name) As 'Employee' 
+FROM Work w,Department d,Employee e 
+WHERE w.Department_Id=d.Department_Id 
+AND w.Employee_Id<>d.Manager_Id 
+AND  e.Employee_Id=w.Employee_Id 
+GROUP BY w.Department_Id;
+
 
 
 4)
@@ -66,7 +64,7 @@ SELECT e.Employee_ID as 'Manager_ID',e.Name as 'Manager_Name'
 FROM Employee e
 WHERE e.Employee_ID IN (SELECT d.Manager_ID
 FROM Department d
-WHERE  d.budget>10000000);
+WHERE  d.budget>100000);
 
 6)select distinct e.Name 
 from Employee e, Work w, Department d 
