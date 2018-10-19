@@ -132,10 +132,9 @@ delimiter ;
 call payment_process(100000,1000000,'Debit','Success',10,'Pune',11);
 
 
-
 CREATE VIEW view_orders AS SELECT o.id, o.total,p.transaction_date,d.amount,p.payment_mode,p.payment_status 
 FROM payment p,orders o,discounts d 
-WHERE d.id=o.discount_id and p.order_id=o.id;
+WHERE d.id=o.discount_id and p.order_id=o.id and (order_date>=current_date()-30);
 
 
 
